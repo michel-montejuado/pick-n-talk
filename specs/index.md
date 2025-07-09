@@ -1,6 +1,6 @@
-# Pick'n'Talk Specifications Index
+# Pick'n'Talk Specifications
 
-Welcome to the Pick'n'Talk specs folder. Here you'll find everything you need to pretend you know what you're building—now with actual organization.
+Welcome to the Pick'n'Talk specifications.
 
 ## 📋 Planning Documents
 
