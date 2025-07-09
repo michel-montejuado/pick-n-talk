@@ -61,5 +61,6 @@ npm run build
 
 ### Additional Resources
 
-- See the [docs](./docs) folder for more details.
+- See the [specs](./specs) folder for more details about the features.
+- See the [docs](./docs) folder for more details about how to use the application.
 - For troubleshooting, check the [FAQ](./FAQ.md).
