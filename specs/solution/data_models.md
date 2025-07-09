@@ -7,22 +7,19 @@ export type EntityType =
   | "binder"
   | "pictogram"
   | "category"
-  | "permissions";
-export type HistoryAction =
-  | "create"
-  | "update"
-  | "delete"
-  | "access"
-  | "share"
-  | "import"
-  | "export";
+  | "permissions"
+  | "history"
+  | "localization";
 
 export interface User {
   id: string;
   name: string;
-  password: string;
+  email: string;
+  passwordHash: string;
   role: Role;
-  settings: Record<string, unknown>;
+  createdAt: Date;
+  updatedAt: Date;
+  settings?: Record<string, unknown>;
 }
 
 export interface Binder {
@@ -33,49 +30,69 @@ export interface Binder {
   pictogramIds: string[];
   sharedWith: string[];
   localizationId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Pictogram {
   id: string;
   label: string;
-  image: Blob;
+  imageUrl: string;
   categoryIds: string[];
   localizationId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Category {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   icon: string;
   localizationId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Permissions {
+  id: string;
   userId: string;
   binderId: string;
   canEdit: boolean;
   canShare: boolean;
   canDelete: boolean;
   canManagePermissions: boolean;
-  grantedBy: string; // userId of granter
+  grantedBy: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
+
+export type HistoryAction =
+  | "create"
+  | "update"
+  | "delete"
+  | "access"
+  | "share"
+  | "import"
+  | "export";
 
 export interface History {
   id: string;
   entityType: EntityType;
   entityId: string;
   action: HistoryAction;
-  performedBy: string; // userId
+  performedBy: string;
   timestamp: Date;
-  changes: Record<string, unknown>; // diff or details of the change
+  changes?: Record<string, unknown>;
 }
 
 export interface Localization {
   id: string;
-  entityType: Exclude<EntityType, "user" | "permissions">;
+  entityType: Exclude<EntityType, "user" | "permissions" | "history">;
   entityId: string;
-  language: string; // e.g., 'en', 'fr', 'es'
-  fields: Record<string, string>; // key-value pairs for localized fields
+  language: string;
+  fields: Record<string, string>;
+  createdAt: Date;
+  updatedAt: Date;
 }
 ```
