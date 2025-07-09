@@ -20,7 +20,7 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/pick-n-talk">
       <Routes>
         <Route path="" element={<Layout />}>
           <Route index element={<HomePage />} />
