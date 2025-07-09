@@ -38,18 +38,6 @@ Pick'n'Talk is a visual communication app designed for people with speech impair
 - **Localization:** i18next, language detection, translation files in `/public/locales/`
 - **Styling:** CSS modules in `src/style/`
 
-### Routing Structure
-
-- `/` — Home
-- `/binders` — List of binders
-- `/binders/:uuid` — Binder details
-- `/binders/:uuid/edit` — Edit binder
-- `/setup` — Initial setup
-- `/users` — User management
-- `/users/:uuid` — User details
-- `/users/:uuid/edit` — Edit user
-- `*` — No match (404)
-
 ### Database (IndexedDB via Dexie.js)
 
 - **Tables:**
