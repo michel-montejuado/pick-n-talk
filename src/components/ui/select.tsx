@@ -1,15 +1,15 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import React, { forwardRef } from 'react'
+import { Select as SelectHeadless, type SelectProps as SelectPropsHeadless } from '@headlessui/react'
+import { forwardRef, type ForwardedRef } from 'react'
+import { cn } from '@/utils/cn'
 
 export const Select = forwardRef(function Select(
-  { className, multiple, ...props }: { className?: string } & Omit<Headless.SelectProps, 'as' | 'className'>,
-  ref: React.ForwardedRef<HTMLSelectElement>
+  { className, multiple, ...props }: { className?: string } & Omit<SelectPropsHeadless, 'as' | 'className'>,
+  ref: ForwardedRef<HTMLSelectElement>
 ) {
   return (
     <span
       data-slot="control"
-      className={clsx([
+      className={cn([
         className,
         // Basic layout
         'group relative block w-full',
@@ -23,11 +23,11 @@ export const Select = forwardRef(function Select(
         'has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none',
       ])}
     >
-      <Headless.Select
+      <SelectHeadless
         ref={ref}
         multiple={multiple}
         {...props}
-        className={clsx([
+        className={cn([
           // Basic layout
           'relative block w-full appearance-none rounded-lg py-[calc(--spacing(2.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
           // Horizontal padding

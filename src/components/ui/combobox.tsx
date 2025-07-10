@@ -1,8 +1,16 @@
 'use client'
 
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import { useState } from 'react'
+import {
+  Combobox as ComboboxHeadless,
+  ComboboxButton as ComboboxButtonHeadless,
+  ComboboxInput as ComboboxInputHeadless,
+  ComboboxOption as ComboboxOptionHeadless,
+  ComboboxOptions as ComboboxOptionsHeadless,
+  type ComboboxOptionProps as ComboboxOptionPropsHeadless,
+  type ComboboxProps as ComboboxPropsHeadless,
+} from '@headlessui/react'
+import { useState, type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from 'react'
+import { cn } from '@/utils/cn'
 
 export function Combobox<T>({
   options,
@@ -23,22 +31,22 @@ export function Combobox<T>({
   placeholder?: string
   autoFocus?: boolean
   'aria-label'?: string
-  children: (value: NonNullable<T>) => React.ReactElement
-} & Omit<Headless.ComboboxProps<T, false>, 'as' | 'multiple' | 'children'> & { anchor?: 'top' | 'bottom' }) {
+  children: (value: NonNullable<T>) => ReactElement
+} & Omit<ComboboxPropsHeadless<T, false>, 'as' | 'multiple' | 'children'> & { anchor?: 'top' | 'bottom' }) {
   const [query, setQuery] = useState('')
 
   const filteredOptions =
     query === ''
       ? options
       : options.filter((option) =>
-          filter ? filter(option, query) : displayValue(option)?.toLowerCase().includes(query.toLowerCase())
-        )
+        filter ? filter(option, query) : displayValue(option)?.toLowerCase().includes(query.toLowerCase())
+      )
 
   return (
-    <Headless.Combobox {...props} multiple={false} virtual={{ options: filteredOptions }} onClose={() => setQuery('')}>
+    <ComboboxHeadless {...props} multiple={false} virtual={{ options: filteredOptions }} onClose={() => setQuery('')}>
       <span
         data-slot="control"
-        className={clsx([
+        className={cn([
           className,
           // Basic layout
           'relative block w-full',
@@ -54,14 +62,14 @@ export function Combobox<T>({
           'has-data-invalid:before:shadow-red-500/10',
         ])}
       >
-        <Headless.ComboboxInput
+        <ComboboxInputHeadless
           autoFocus={autoFocus}
           data-slot="control"
           aria-label={ariaLabel}
           displayValue={(option: T) => displayValue(option) ?? ''}
           onChange={(event) => setQuery(event.target.value)}
           placeholder={placeholder}
-          className={clsx([
+          className={cn([
             className,
             // Basic layout
             'relative block w-full appearance-none rounded-lg py-[calc(--spacing(2.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
@@ -83,7 +91,7 @@ export function Combobox<T>({
             'dark:scheme-dark',
           ])}
         />
-        <Headless.ComboboxButton className="group absolute inset-y-0 right-0 flex items-center px-2">
+        <ComboboxButtonHeadless className="group absolute inset-y-0 right-0 flex items-center px-2">
           <svg
             className="size-5 stroke-zinc-500 group-data-disabled:stroke-zinc-600 group-data-hover:stroke-zinc-700 sm:size-4 dark:stroke-zinc-400 dark:group-data-hover:stroke-zinc-300 forced-colors:stroke-[CanvasText]"
             viewBox="0 0 16 16"
@@ -93,12 +101,12 @@ export function Combobox<T>({
             <path d="M5.75 10.75L8 13L10.25 10.75" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
             <path d="M10.25 5.25L8 3L5.75 5.25" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </Headless.ComboboxButton>
+        </ComboboxButtonHeadless>
       </span>
-      <Headless.ComboboxOptions
+      <ComboboxOptionsHeadless
         transition
         anchor={anchor}
-        className={clsx(
+        className={cn(
           // Anchor positioning
           '[--anchor-gap:--spacing(2)] [--anchor-padding:--spacing(4)] sm:data-[anchor~=start]:[--anchor-offset:-4px]',
           // Base styles,
@@ -116,8 +124,8 @@ export function Combobox<T>({
         )}
       >
         {({ option }) => children(option)}
-      </Headless.ComboboxOptions>
-    </Headless.Combobox>
+      </ComboboxOptionsHeadless>
+    </ComboboxHeadless>
   )
 }
 
@@ -125,11 +133,8 @@ export function ComboboxOption<T>({
   children,
   className,
   ...props
-}: { className?: string; children?: React.ReactNode } & Omit<
-  Headless.ComboboxOptionProps<'div', T>,
-  'as' | 'className'
->) {
-  let sharedClasses = clsx(
+}: { className?: string; children?: ReactNode } & Omit<ComboboxOptionPropsHeadless<'div', T>, 'as' | 'className'>) {
+  const sharedClasses = cn(
     // Base
     'flex min-w-0 items-center',
     // Icons
@@ -141,9 +146,9 @@ export function ComboboxOption<T>({
   )
 
   return (
-    <Headless.ComboboxOption
+    <ComboboxOptionHeadless
       {...props}
-      className={clsx(
+      className={cn(
         // Basic layout
         'group/option grid w-full cursor-default grid-cols-[1fr_--spacing(5)] items-baseline gap-x-2 rounded-lg py-2.5 pr-2 pl-3.5 sm:grid-cols-[1fr_--spacing(4)] sm:py-1.5 sm:pr-2 sm:pl-3',
         // Typography
@@ -156,7 +161,7 @@ export function ComboboxOption<T>({
         'data-disabled:opacity-50'
       )}
     >
-      <span className={clsx(className, sharedClasses)}>{children}</span>
+      <span className={cn(className, sharedClasses)}>{children}</span>
       <svg
         className="relative col-start-2 hidden size-5 self-center stroke-current group-data-selected/option:inline sm:size-4"
         viewBox="0 0 16 16"
@@ -165,19 +170,19 @@ export function ComboboxOption<T>({
       >
         <path d="M4 8.5l3 3L12 4" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-    </Headless.ComboboxOption>
+    </ComboboxOptionHeadless>
   )
 }
 
-export function ComboboxLabel({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) {
-  return <span {...props} className={clsx(className, 'ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0')} />
+export function ComboboxLabel({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
+  return <span {...props} className={cn(className, 'ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0')} />
 }
 
-export function ComboboxDescription({ className, children, ...props }: React.ComponentPropsWithoutRef<'span'>) {
+export function ComboboxDescription({ className, children, ...props }: ComponentPropsWithoutRef<'span'>) {
   return (
     <span
       {...props}
-      className={clsx(
+      className={cn(
         className,
         'flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink dark:text-zinc-400'
       )}

@@ -1,8 +1,16 @@
 'use client'
 
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import { Fragment } from 'react'
+import {
+  Listbox as ListboxHeadless,
+  ListboxButton as ListboxButtonHeadless,
+  ListboxOption as ListboxOptionHeadless,
+  ListboxOptions as ListboxOptionsHeadless,
+  ListboxSelectedOption as ListboxSelectedOptionHeadless,
+  type ListboxOptionProps as ListboxOptionPropsHeadless,
+  type ListboxProps as ListboxPropsHeadless,
+} from '@headlessui/react'
+import { Fragment, type ComponentPropsWithoutRef, type ReactNode } from 'react'
+import { cn } from '@/utils/cn'
 
 export function Listbox<T>({
   className,
@@ -13,18 +21,18 @@ export function Listbox<T>({
   ...props
 }: {
   className?: string
-  placeholder?: React.ReactNode
+  placeholder?: ReactNode
   autoFocus?: boolean
   'aria-label'?: string
-  children?: React.ReactNode
-} & Omit<Headless.ListboxProps<typeof Fragment, T>, 'as' | 'multiple'>) {
+  children?: ReactNode
+} & Omit<ListboxPropsHeadless<typeof Fragment, T>, 'as' | 'multiple'>) {
   return (
-    <Headless.Listbox {...props} multiple={false}>
-      <Headless.ListboxButton
+    <ListboxHeadless {...props} multiple={false}>
+      <ListboxButtonHeadless
         autoFocus={autoFocus}
         data-slot="control"
         aria-label={ariaLabel}
-        className={clsx([
+        className={cn([
           className,
           // Basic layout
           'group relative block w-full',
@@ -40,11 +48,11 @@ export function Listbox<T>({
           'data-disabled:opacity-50 data-disabled:before:bg-zinc-950/5 data-disabled:before:shadow-none',
         ])}
       >
-        <Headless.ListboxSelectedOption
+        <ListboxSelectedOptionHeadless
           as="span"
           options={options}
           placeholder={placeholder && <span className="block truncate text-zinc-500">{placeholder}</span>}
-          className={clsx([
+          className={cn([
             // Basic layout
             'relative block w-full appearance-none rounded-lg py-[calc(--spacing(2.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
             // Set minimum height for when no value is selected
@@ -74,11 +82,11 @@ export function Listbox<T>({
             <path d="M10.25 5.25L8 3L5.75 5.25" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-      </Headless.ListboxButton>
-      <Headless.ListboxOptions
+      </ListboxButtonHeadless>
+      <ListboxOptionsHeadless
         transition
         anchor="selection start"
-        className={clsx(
+        className={cn(
           // Anchor positioning
           '[--anchor-offset:-1.625rem] [--anchor-padding:--spacing(4)] sm:[--anchor-offset:-1.375rem]',
           // Base styles
@@ -96,8 +104,8 @@ export function Listbox<T>({
         )}
       >
         {options}
-      </Headless.ListboxOptions>
-    </Headless.Listbox>
+      </ListboxOptionsHeadless>
+    </ListboxHeadless>
   )
 }
 
@@ -105,11 +113,8 @@ export function ListboxOption<T>({
   children,
   className,
   ...props
-}: { className?: string; children?: React.ReactNode } & Omit<
-  Headless.ListboxOptionProps<'div', T>,
-  'as' | 'className'
->) {
-  let sharedClasses = clsx(
+}: { className?: string; children?: ReactNode } & Omit<ListboxOptionPropsHeadless<'div', T>, 'as' | 'className'>) {
+  const sharedClasses = cn(
     // Base
     'flex min-w-0 items-center',
     // Icons
@@ -121,15 +126,15 @@ export function ListboxOption<T>({
   )
 
   return (
-    <Headless.ListboxOption as={Fragment} {...props}>
+    <ListboxOptionHeadless as={Fragment} {...props}>
       {({ selectedOption }) => {
         if (selectedOption) {
-          return <div className={clsx(className, sharedClasses)}>{children}</div>
+          return <div className={cn(className, sharedClasses)}>{children}</div>
         }
 
         return (
           <div
-            className={clsx(
+            className={cn(
               // Basic layout
               'group/option grid cursor-default grid-cols-[--spacing(5)_1fr] items-baseline gap-x-2 rounded-lg py-2.5 pr-3.5 pl-2 sm:grid-cols-[--spacing(4)_1fr] sm:py-1.5 sm:pr-3 sm:pl-1.5',
               // Typography
@@ -150,23 +155,23 @@ export function ListboxOption<T>({
             >
               <path d="M4 8.5l3 3L12 4" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className={clsx(className, sharedClasses, 'col-start-2')}>{children}</span>
+            <span className={cn(className, sharedClasses, 'col-start-2')}>{children}</span>
           </div>
         )
       }}
-    </Headless.ListboxOption>
+    </ListboxOptionHeadless>
   )
 }
 
-export function ListboxLabel({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) {
-  return <span {...props} className={clsx(className, 'ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0')} />
+export function ListboxLabel({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
+  return <span {...props} className={cn(className, 'ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0')} />
 }
 
-export function ListboxDescription({ className, children, ...props }: React.ComponentPropsWithoutRef<'span'>) {
+export function ListboxDescription({ className, children, ...props }: ComponentPropsWithoutRef<'span'>) {
   return (
     <span
       {...props}
-      className={clsx(
+      className={cn(
         className,
         'flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink dark:text-zinc-400'
       )}

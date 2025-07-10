@@ -1,13 +1,18 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
+import {
+  Field as FieldHeadless,
+  Switch as SwitchHeadless,
+  type FieldProps as FieldPropsHeadless,
+  type SwitchProps as SwitchPropsHeadless,
+} from '@headlessui/react'
 import type React from 'react'
+import { cn } from '@/utils/cn'
 
 export function SwitchGroup({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div
       data-slot="control"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Basic groups
         'space-y-3 **:data-[slot=label]:font-normal',
@@ -21,12 +26,12 @@ export function SwitchGroup({ className, ...props }: React.ComponentPropsWithout
 export function SwitchField({
   className,
   ...props
-}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<FieldPropsHeadless, 'as' | 'className'>) {
   return (
-    <Headless.Field
+    <FieldHeadless
       data-slot="field"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Base layout
         'grid grid-cols-[1fr_auto] gap-x-8 gap-y-1 sm:grid-cols-[1fr_auto]',
@@ -143,12 +148,12 @@ export function Switch({
 }: {
   color?: Color
   className?: string
-} & Omit<Headless.SwitchProps, 'as' | 'className' | 'children'>) {
+} & Omit<SwitchPropsHeadless, 'as' | 'className' | 'children'>) {
   return (
-    <Headless.Switch
+    <SwitchHeadless
       data-slot="control"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Base styles
         'group relative isolate inline-flex h-6 w-10 cursor-default rounded-full p-[3px] sm:h-5 sm:w-8',
@@ -174,7 +179,7 @@ export function Switch({
     >
       <span
         aria-hidden="true"
-        className={clsx(
+        className={cn(
           // Basic layout
           'pointer-events-none relative inline-block size-4.5 rounded-full sm:size-3.5',
           // Transition
@@ -190,6 +195,6 @@ export function Switch({
           'group-data-checked:group-data-disabled:bg-white group-data-checked:group-data-disabled:shadow-sm group-data-checked:group-data-disabled:ring-black/5'
         )}
       />
-    </Headless.Switch>
+    </SwitchHeadless>
   )
 }

@@ -1,7 +1,7 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import React, { forwardRef } from 'react'
-import { Link } from './link'
+import { Button as ButtonHeadless, type ButtonProps as ButtonPropsHeadless } from '@headlessui/react'
+import { forwardRef, type ComponentPropsWithoutRef, type ForwardedRef, type ReactNode } from 'react'
+import { cn } from '@/utils/cn'
+import { Link } from '@/components/ui/link'
 
 const styles = {
   base: [
@@ -158,40 +158,43 @@ const styles = {
   },
 }
 
-type ButtonProps = (
+type ButtonVariantProps =
   | { color?: keyof typeof styles.colors; outline?: never; plain?: never }
   | { color?: never; outline: true; plain?: never }
   | { color?: never; outline?: never; plain: true }
-) & { className?: string; children: React.ReactNode } & (
-    | Omit<Headless.ButtonProps, 'as' | 'className'>
-    | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
-  )
+
+type BaseButtonProps = {
+  className?: string
+  children: ReactNode
+} & (Omit<ButtonPropsHeadless, 'as' | 'className'> | Omit<ComponentPropsWithoutRef<typeof Link>, 'className'>)
+
+type ButtonProps = ButtonVariantProps & BaseButtonProps
 
 export const Button = forwardRef(function Button(
   { color, outline, plain, className, children, ...props }: ButtonProps,
-  ref: React.ForwardedRef<HTMLElement>
+  ref: ForwardedRef<HTMLElement>
 ) {
-  let classes = clsx(
+  const classes = cn(
     className,
     styles.base,
-    outline ? styles.outline : plain ? styles.plain : clsx(styles.solid, styles.colors[color ?? 'dark/zinc'])
+    outline ? styles.outline : plain ? styles.plain : cn(styles.solid, styles.colors[color ?? 'dark/zinc'])
   )
 
   return 'href' in props ? (
-    <Link {...props} className={classes} ref={ref as React.ForwardedRef<HTMLAnchorElement>}>
+    <Link {...props} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
       <TouchTarget>{children}</TouchTarget>
     </Link>
   ) : (
-    <Headless.Button {...props} className={clsx(classes, 'cursor-default')} ref={ref}>
+    <ButtonHeadless {...props} className={cn(classes, 'cursor-default')} ref={ref}>
       <TouchTarget>{children}</TouchTarget>
-    </Headless.Button>
+    </ButtonHeadless>
   )
 })
 
 /**
  * Expand the hit area to at least 44×44px on touch devices
  */
-export function TouchTarget({ children }: { children: React.ReactNode }) {
+export function TouchTarget({ children }: { children: ReactNode }) {
   return (
     <>
       <span

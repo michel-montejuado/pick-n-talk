@@ -1,13 +1,18 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
+import {
+  Checkbox as CheckboxHeadless,
+  Field as FieldHeadless,
+  type CheckboxProps as CheckboxPropsHeadless,
+  type FieldProps as FieldPropsHeadless,
+} from '@headlessui/react'
 import type React from 'react'
+import { cn } from '@/utils/cn'
 
 export function CheckboxGroup({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div
       data-slot="control"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Basic groups
         'space-y-3',
@@ -21,12 +26,12 @@ export function CheckboxGroup({ className, ...props }: React.ComponentPropsWitho
 export function CheckboxField({
   className,
   ...props
-}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<FieldPropsHeadless, 'as' | 'className'>) {
   return (
-    <Headless.Field
+    <FieldHeadless
       data-slot="field"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Base layout
         'grid grid-cols-[1.125rem_1fr] gap-x-4 gap-y-1 sm:grid-cols-[1rem_1fr]',
@@ -121,14 +126,14 @@ export function Checkbox({
 }: {
   color?: Color
   className?: string
-} & Omit<Headless.CheckboxProps, 'as' | 'className'>) {
+} & Omit<CheckboxPropsHeadless, 'as' | 'className'>) {
   return (
-    <Headless.Checkbox
+    <CheckboxHeadless
       data-slot="control"
       {...props}
-      className={clsx(className, 'group inline-flex focus:outline-hidden')}
+      className={cn(className, 'group inline-flex focus:outline-hidden')}
     >
-      <span className={clsx([base, colors[color]])}>
+      <span className={cn([base, colors[color]])}>
         <svg
           className="size-4 stroke-(--checkbox-check) opacity-0 group-data-checked:opacity-100 sm:h-3.5 sm:w-3.5"
           viewBox="0 0 14 14"
@@ -152,6 +157,6 @@ export function Checkbox({
           />
         </svg>
       </span>
-    </Headless.Checkbox>
+    </CheckboxHeadless>
   )
 }

@@ -1,19 +1,19 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import React, { forwardRef } from 'react'
+import { Textarea as TextareaHeadless, type TextareaProps as TextareaPropsHeadless } from '@headlessui/react'
+import { forwardRef, type ForwardedRef } from 'react'
+import { cn } from '@/utils/cn'
 
 export const Textarea = forwardRef(function Textarea(
   {
     className,
     resizable = true,
     ...props
-  }: { className?: string; resizable?: boolean } & Omit<Headless.TextareaProps, 'as' | 'className'>,
-  ref: React.ForwardedRef<HTMLTextAreaElement>
+  }: { className?: string; resizable?: boolean } & Omit<TextareaPropsHeadless, 'as' | 'className'>,
+  ref: ForwardedRef<HTMLTextAreaElement>
 ) {
   return (
     <span
       data-slot="control"
-      className={clsx([
+      className={cn([
         className,
         // Basic layout
         'relative block w-full',
@@ -27,10 +27,10 @@ export const Textarea = forwardRef(function Textarea(
         'has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none',
       ])}
     >
-      <Headless.Textarea
+      <TextareaHeadless
         ref={ref}
         {...props}
-        className={clsx([
+        className={cn([
           // Basic layout
           'relative block h-full w-full appearance-none rounded-lg px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
           // Typography

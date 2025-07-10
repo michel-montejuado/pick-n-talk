@@ -1,15 +1,22 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
+import {
+  Field as FieldHeadless,
+  Radio as RadioHeadless,
+  RadioGroup as RadioGroupHeadless,
+  type FieldProps as FieldPropsHeadless,
+  type RadioGroupProps as RadioGroupPropsHeadless,
+  type RadioProps as RadioPropsHeadless,
+} from '@headlessui/react'
+import { cn } from '@/utils/cn'
 
 export function RadioGroup({
   className,
   ...props
-}: { className?: string } & Omit<Headless.RadioGroupProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<RadioGroupPropsHeadless, 'as' | 'className'>) {
   return (
-    <Headless.RadioGroup
+    <RadioGroupHeadless
       data-slot="control"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Basic groups
         'space-y-3 **:data-[slot=label]:font-normal',
@@ -23,12 +30,12 @@ export function RadioGroup({
 export function RadioField({
   className,
   ...props
-}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<FieldPropsHeadless, 'as' | 'className'>) {
   return (
-    <Headless.Field
+    <FieldHeadless
       data-slot="field"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Base layout
         'grid grid-cols-[1.125rem_1fr] gap-x-4 gap-y-1 sm:grid-cols-[1rem_1fr]',
@@ -121,22 +128,22 @@ export function Radio({
   color = 'dark/zinc',
   className,
   ...props
-}: { color?: Color; className?: string } & Omit<Headless.RadioProps, 'as' | 'className' | 'children'>) {
+}: { color?: Color; className?: string } & Omit<RadioPropsHeadless, 'as' | 'className' | 'children'>) {
   return (
-    <Headless.Radio
+    <RadioHeadless
       data-slot="control"
       {...props}
-      className={clsx(className, 'group inline-flex focus:outline-hidden')}
+      className={cn(className, 'group inline-flex focus:outline-hidden')}
     >
-      <span className={clsx([base, colors[color]])}>
+      <span className={cn([base, colors[color]])}>
         <span
-          className={clsx(
+          className={cn(
             'size-full rounded-full border-[4.5px] border-transparent bg-(--radio-indicator) bg-clip-padding',
             // Forced colors mode
             'forced-colors:border-[Canvas] forced-colors:group-data-checked:border-[Highlight]'
           )}
         />
       </span>
-    </Headless.Radio>
+    </RadioHeadless>
   )
 }

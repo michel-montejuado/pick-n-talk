@@ -1,12 +1,12 @@
-import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
-import React, { forwardRef } from 'react'
+import { Input as InputHeadless, type InputProps as InputPropsHeadless } from '@headlessui/react'
+import { forwardRef, type ComponentPropsWithoutRef, type ForwardedRef } from 'react'
+import { cn } from '@/utils/cn'
 
-export function InputGroup({ children }: React.ComponentPropsWithoutRef<'span'>) {
+export function InputGroup({ children }: ComponentPropsWithoutRef<'span'>) {
   return (
     <span
       data-slot="control"
-      className={clsx(
+      className={cn(
         'relative isolate block',
         'has-[[data-slot=icon]:first-child]:[&_input]:pl-10 has-[[data-slot=icon]:last-child]:[&_input]:pr-10 sm:has-[[data-slot=icon]:first-child]:[&_input]:pl-8 sm:has-[[data-slot=icon]:last-child]:[&_input]:pr-8',
         '*:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:top-3 *:data-[slot=icon]:z-10 *:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:top-2.5 sm:*:data-[slot=icon]:size-4',
@@ -29,13 +29,13 @@ export const Input = forwardRef(function Input(
   }: {
     className?: string
     type?: 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url' | DateType
-  } & Omit<Headless.InputProps, 'as' | 'className'>,
-  ref: React.ForwardedRef<HTMLInputElement>
+  } & Omit<InputPropsHeadless, 'as' | 'className'>,
+  ref: ForwardedRef<HTMLInputElement>
 ) {
   return (
     <span
       data-slot="control"
-      className={clsx([
+      className={cn([
         className,
         // Basic layout
         'relative block w-full',
@@ -51,26 +51,26 @@ export const Input = forwardRef(function Input(
         'has-data-invalid:before:shadow-red-500/10',
       ])}
     >
-      <Headless.Input
+      <InputHeadless
         ref={ref}
         {...props}
-        className={clsx([
+        className={cn([
           // Date classes
           props.type &&
-            dateTypes.includes(props.type) && [
-              '[&::-webkit-datetime-edit-fields-wrapper]:p-0',
-              '[&::-webkit-date-and-time-value]:min-h-[1.5em]',
-              '[&::-webkit-datetime-edit]:inline-flex',
-              '[&::-webkit-datetime-edit]:p-0',
-              '[&::-webkit-datetime-edit-year-field]:p-0',
-              '[&::-webkit-datetime-edit-month-field]:p-0',
-              '[&::-webkit-datetime-edit-day-field]:p-0',
-              '[&::-webkit-datetime-edit-hour-field]:p-0',
-              '[&::-webkit-datetime-edit-minute-field]:p-0',
-              '[&::-webkit-datetime-edit-second-field]:p-0',
-              '[&::-webkit-datetime-edit-millisecond-field]:p-0',
-              '[&::-webkit-datetime-edit-meridiem-field]:p-0',
-            ],
+          dateTypes.includes(props.type) && [
+            '[&::-webkit-datetime-edit-fields-wrapper]:p-0',
+            '[&::-webkit-date-and-time-value]:min-h-[1.5em]',
+            '[&::-webkit-datetime-edit]:inline-flex',
+            '[&::-webkit-datetime-edit]:p-0',
+            '[&::-webkit-datetime-edit-year-field]:p-0',
+            '[&::-webkit-datetime-edit-month-field]:p-0',
+            '[&::-webkit-datetime-edit-day-field]:p-0',
+            '[&::-webkit-datetime-edit-hour-field]:p-0',
+            '[&::-webkit-datetime-edit-minute-field]:p-0',
+            '[&::-webkit-datetime-edit-second-field]:p-0',
+            '[&::-webkit-datetime-edit-millisecond-field]:p-0',
+            '[&::-webkit-datetime-edit-meridiem-field]:p-0',
+          ],
           // Basic layout
           'relative block w-full appearance-none rounded-lg px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
           // Typography
