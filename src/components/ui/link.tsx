@@ -6,16 +6,16 @@
  * https://catalyst.tailwindui.com/docs#client-side-router-integration
  */
 
-import { DataInteractive as DataInteractiveHeadless } from '@headlessui/react'
-import { forwardRef, type ComponentPropsWithoutRef, type ForwardedRef } from 'react'
+import { DataInteractive as DataInteractiveHeadless } from "@headlessui/react";
+import { forwardRef, type ComponentPropsWithoutRef, type ForwardedRef } from "react";
 
 export const Link = forwardRef(function Link(
-  props: { href: string } & ComponentPropsWithoutRef<'a'>,
+  props: { href: string } & ComponentPropsWithoutRef<"a">,
   ref: ForwardedRef<HTMLAnchorElement>
 ) {
   return (
     <DataInteractiveHeadless>
       <a {...props} ref={ref} />
     </DataInteractiveHeadless>
-  )
-})
+  );
+});

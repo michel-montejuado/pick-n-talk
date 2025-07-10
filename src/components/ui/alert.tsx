@@ -7,30 +7,30 @@ import {
   type DescriptionProps as DescriptionPropsHeadless,
   type DialogProps as DialogPropsHeadless,
   type DialogTitleProps as DialogTitlePropsHeadless,
-} from '@headlessui/react'
-import type React from 'react'
-import { cn } from '@/utils/cn'
-import { Text } from '@/components/ui/text'
+} from "@headlessui/react";
+import type React from "react";
+import { cn } from "@/utils/cn";
+import { Text } from "@/components/ui/text";
 
 const sizes = {
-  xs: 'sm:max-w-xs',
-  sm: 'sm:max-w-sm',
-  md: 'sm:max-w-md',
-  lg: 'sm:max-w-lg',
-  xl: 'sm:max-w-xl',
-  '2xl': 'sm:max-w-2xl',
-  '3xl': 'sm:max-w-3xl',
-  '4xl': 'sm:max-w-4xl',
-  '5xl': 'sm:max-w-5xl',
-}
+  xs: "sm:max-w-xs",
+  sm: "sm:max-w-sm",
+  md: "sm:max-w-md",
+  lg: "sm:max-w-lg",
+  xl: "sm:max-w-xl",
+  "2xl": "sm:max-w-2xl",
+  "3xl": "sm:max-w-3xl",
+  "4xl": "sm:max-w-4xl",
+  "5xl": "sm:max-w-5xl",
+};
 
 type AlertProps = {
-  size?: keyof typeof sizes
-  className?: string
-  children: React.ReactNode
-} & Omit<DialogPropsHeadless, 'as' | 'className'>
+  size?: keyof typeof sizes;
+  className?: string;
+  children: React.ReactNode;
+} & Omit<DialogPropsHeadless, "as" | "className">;
 
-export function Alert({ size = 'md', className, children, ...props }: AlertProps) {
+export function Alert({ size = "md", className, children, ...props }: AlertProps) {
   return (
     <DialogHeadless {...props}>
       <DialogBackdropHeadless
@@ -45,8 +45,8 @@ export function Alert({ size = 'md', className, children, ...props }: AlertProps
             className={cn(
               className,
               sizes[size],
-              'row-start-2 w-full rounded-2xl bg-white p-8 shadow-lg ring-1 ring-zinc-950/10 sm:rounded-2xl sm:p-6 dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline',
-              'transition duration-100 will-change-transform data-closed:opacity-0 data-enter:ease-out data-closed:data-enter:scale-95 data-leave:ease-in'
+              "row-start-2 w-full rounded-2xl bg-white p-8 shadow-lg ring-1 ring-zinc-950/10 sm:rounded-2xl sm:p-6 dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline",
+              "transition duration-100 will-change-transform data-closed:opacity-0 data-enter:ease-out data-closed:data-enter:scale-95 data-leave:ease-in"
             )}
           >
             {children}
@@ -54,10 +54,10 @@ export function Alert({ size = 'md', className, children, ...props }: AlertProps
         </div>
       </div>
     </DialogHeadless>
-  )
+  );
 }
 
-type AlertTitleProps = { className?: string } & Omit<DialogTitlePropsHeadless, 'as' | 'className'>
+type AlertTitleProps = { className?: string } & Omit<DialogTitlePropsHeadless, "as" | "className">;
 
 export function AlertTitle({ className, ...props }: AlertTitleProps) {
   return (
@@ -65,36 +65,36 @@ export function AlertTitle({ className, ...props }: AlertTitleProps) {
       {...props}
       className={cn(
         className,
-        'text-center text-base/6 font-semibold text-balance text-zinc-950 sm:text-left sm:text-sm/6 sm:text-wrap dark:text-white'
+        "text-center text-base/6 font-semibold text-balance text-zinc-950 sm:text-left sm:text-sm/6 sm:text-wrap dark:text-white"
       )}
     />
-  )
+  );
 }
 
-type AlertDescriptionProps = { className?: string } & Omit<DescriptionPropsHeadless<typeof Text>, 'as' | 'className'>
+type AlertDescriptionProps = { className?: string } & Omit<DescriptionPropsHeadless<typeof Text>, "as" | "className">;
 
 export function AlertDescription({ className, ...props }: AlertDescriptionProps) {
   return (
     <DescriptionHeadless
       as={Text}
       {...props}
-      className={cn(className, 'mt-2 text-center text-pretty sm:text-left')}
+      className={cn(className, "mt-2 text-center text-pretty sm:text-left")}
     />
-  )
+  );
 }
 
-export function AlertBody({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  return <div {...props} className={cn(className, 'mt-4')} />
+export function AlertBody({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
+  return <div {...props} className={cn(className, "mt-4")} />;
 }
 
-export function AlertActions({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+export function AlertActions({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   return (
     <div
       {...props}
       className={cn(
         className,
-        'mt-6 flex flex-col-reverse items-center justify-end gap-3 *:w-full sm:mt-4 sm:flex-row sm:*:w-auto'
+        "mt-6 flex flex-col-reverse items-center justify-end gap-3 *:w-full sm:mt-4 sm:flex-row sm:*:w-auto"
       )}
     />
-  )
+  );
 }

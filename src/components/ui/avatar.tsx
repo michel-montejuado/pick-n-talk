@@ -1,25 +1,25 @@
-import { Button as ButtonHeadless, type ButtonProps as ButtonPropsHeadless } from '@headlessui/react'
-import { forwardRef, type ComponentPropsWithoutRef, type ForwardedRef } from 'react'
-import { TouchTarget } from '@/components/ui/button'
-import { cn } from '@/utils/cn'
-import { Link } from '@/components/ui/link'
+import { Button as ButtonHeadless, type ButtonProps as ButtonPropsHeadless } from "@headlessui/react";
+import { forwardRef, type ComponentPropsWithoutRef, type ForwardedRef } from "react";
+import { TouchTarget } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
+import { Link } from "@/components/ui/link";
 
 type AvatarProps = {
-  src?: string | null
-  square?: boolean
-  initials?: string
-  alt?: string
-  className?: string
-}
+  src?: string | null;
+  square?: boolean;
+  initials?: string;
+  alt?: string;
+  className?: string;
+};
 
 export function Avatar({
   src = null,
   square = false,
   initials,
-  alt = '',
+  alt = "",
   className,
   ...props
-}: AvatarProps & ComponentPropsWithoutRef<'span'>) {
+}: AvatarProps & ComponentPropsWithoutRef<"span">) {
   return (
     <span
       data-slot="avatar"
@@ -27,10 +27,10 @@ export function Avatar({
       className={cn(
         className,
         // Basic layout
-        'inline-grid shrink-0 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1',
-        'outline -outline-offset-1 outline-black/10 dark:outline-white/10',
+        "inline-grid shrink-0 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1",
+        "outline -outline-offset-1 outline-black/10 dark:outline-white/10",
         // Border radius
-        square ? 'rounded-(--avatar-radius) *:rounded-(--avatar-radius)' : 'rounded-full *:rounded-full'
+        square ? "rounded-(--avatar-radius) *:rounded-(--avatar-radius)" : "rounded-full *:rounded-full"
       )}
     >
       {initials && (
@@ -47,12 +47,12 @@ export function Avatar({
       )}
       {src && <img className="size-full" src={src} alt={alt} />}
     </span>
-  )
+  );
 }
 
 type AvatarButtonProps =
   & AvatarProps
-  & (Omit<ButtonPropsHeadless, 'as' | 'className'> | Omit<ComponentPropsWithoutRef<typeof Link>, 'className'>)
+  & (Omit<ButtonPropsHeadless, "as" | "className"> | Omit<ComponentPropsWithoutRef<typeof Link>, "className">);
 
 export const AvatarButton = forwardRef(function AvatarButton(
   {
@@ -67,11 +67,11 @@ export const AvatarButton = forwardRef(function AvatarButton(
 ) {
   const classes = cn(
     className,
-    square ? 'rounded-[20%]' : 'rounded-full',
-    'relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500'
-  )
+    square ? "rounded-[20%]" : "rounded-full",
+    "relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500"
+  );
 
-  return 'href' in props ? (
+  return "href" in props ? (
     <Link {...props} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
       <TouchTarget>
         <Avatar src={src} square={square} initials={initials} alt={alt} />
@@ -83,5 +83,5 @@ export const AvatarButton = forwardRef(function AvatarButton(
         <Avatar src={src} square={square} initials={initials} alt={alt} />
       </TouchTarget>
     </ButtonHeadless>
-  )
-})
+  );
+});

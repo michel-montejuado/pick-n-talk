@@ -7,29 +7,33 @@ import {
   type DescriptionProps as DescriptionPropsHeadless,
   type DialogProps as DialogPropsHeadless,
   type DialogTitleProps as DialogTitlePropsHeadless,
-} from '@headlessui/react'
-import type React from 'react'
-import { cn } from '@/utils/cn'
-import { Text } from '@/components/ui/text'
+} from "@headlessui/react";
+import type React from "react";
+import { cn } from "@/utils/cn";
+import { Text } from "@/components/ui/text";
 
 const sizes = {
-  xs: 'sm:max-w-xs',
-  sm: 'sm:max-w-sm',
-  md: 'sm:max-w-md',
-  lg: 'sm:max-w-lg',
-  xl: 'sm:max-w-xl',
-  '2xl': 'sm:max-w-2xl',
-  '3xl': 'sm:max-w-3xl',
-  '4xl': 'sm:max-w-4xl',
-  '5xl': 'sm:max-w-5xl',
-}
+  xs: "sm:max-w-xs",
+  sm: "sm:max-w-sm",
+  md: "sm:max-w-md",
+  lg: "sm:max-w-lg",
+  xl: "sm:max-w-xl",
+  "2xl": "sm:max-w-2xl",
+  "3xl": "sm:max-w-3xl",
+  "4xl": "sm:max-w-4xl",
+  "5xl": "sm:max-w-5xl",
+};
 
 export function Dialog({
-  size = 'lg',
+  size = "lg",
   className,
   children,
   ...props
-}: { size?: keyof typeof sizes; className?: string; children: React.ReactNode } & Omit<DialogPropsHeadless, 'as' | 'className'>) {
+}: {
+  size?: keyof typeof sizes;
+  className?: string;
+  children: React.ReactNode;
+} & Omit<DialogPropsHeadless, "as" | "className">) {
   return (
     <DialogHeadless {...props}>
       <DialogBackdropHeadless
@@ -44,8 +48,8 @@ export function Dialog({
             className={cn(
               className,
               sizes[size],
-              'row-start-2 w-full min-w-0 rounded-t-3xl bg-white p-(--gutter) shadow-lg ring-1 ring-zinc-950/10 [--gutter:--spacing(8)] sm:mb-auto sm:rounded-2xl dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline',
-              'transition duration-100 will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:data-closed:translate-y-0 sm:data-closed:data-enter:scale-95'
+              "row-start-2 w-full min-w-0 rounded-t-3xl bg-white p-(--gutter) shadow-lg ring-1 ring-zinc-950/10 [--gutter:--spacing(8)] sm:mb-auto sm:rounded-2xl dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline",
+              "transition duration-100 will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:data-closed:translate-y-0 sm:data-closed:data-enter:scale-95"
             )}
           >
             {children}
@@ -53,40 +57,43 @@ export function Dialog({
         </div>
       </div>
     </DialogHeadless>
-  )
+  );
 }
 
 export function DialogTitle({
   className,
   ...props
-}: { className?: string } & Omit<DialogTitlePropsHeadless, 'as' | 'className'>) {
+}: { className?: string } & Omit<DialogTitlePropsHeadless, "as" | "className">) {
   return (
     <DialogTitleHeadless
       {...props}
-      className={cn(className, 'text-lg/6 font-semibold text-balance text-zinc-950 sm:text-base/6 dark:text-white')}
+      className={cn(
+        className,
+        "text-lg/6 font-semibold text-balance text-zinc-950 sm:text-base/6 dark:text-white"
+      )}
     />
-  )
+  );
 }
 
 export function DialogDescription({
   className,
   ...props
-}: { className?: string } & Omit<DescriptionPropsHeadless<typeof Text>, 'as' | 'className'>) {
-  return <DescriptionHeadless as={Text} {...props} className={cn(className, 'mt-2 text-pretty')} />
+}: { className?: string } & Omit<DescriptionPropsHeadless<typeof Text>, "as" | "className">) {
+  return <DescriptionHeadless as={Text} {...props} className={cn(className, "mt-2 text-pretty")} />;
 }
 
-export function DialogBody({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  return <div {...props} className={cn(className, 'mt-6')} />
+export function DialogBody({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
+  return <div {...props} className={cn(className, "mt-6")} />;
 }
 
-export function DialogActions({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+export function DialogActions({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   return (
     <div
       {...props}
       className={cn(
         className,
-        'mt-8 flex flex-col-reverse items-center justify-end gap-3 *:w-full sm:flex-row sm:*:w-auto'
+        "mt-8 flex flex-col-reverse items-center justify-end gap-3 *:w-full sm:flex-row sm:*:w-auto"
       )}
     />
-  )
+  );
 }
