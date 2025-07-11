@@ -66,17 +66,25 @@ export const BadgeButton = forwardRef(function BadgeButton(
     "group relative inline-flex rounded-md focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500"
   );
 
-  return "href" in props ? (
-    <Link {...props} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
-      <TouchTarget>
-        <Badge color={color}>{children}</Badge>
-      </TouchTarget>
-    </Link>
-  ) : (
-    <ButtonHeadless {...props} className={classes} ref={ref}>
-      <TouchTarget>
-        <Badge color={color}>{children}</Badge>
-      </TouchTarget>
-    </ButtonHeadless>
-  );
+  if ("href" in props) {
+    // Anchor/link case
+    const linkProps = props as Omit<ComponentPropsWithoutRef<typeof Link>, "className"> & { href: string };
+    return (
+      <Link {...linkProps} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
+        <TouchTarget>
+          <Badge color={color}>{children}</Badge>
+        </TouchTarget>
+      </Link>
+    );
+  } else {
+    // Button case
+    const buttonProps = props as Omit<ButtonPropsHeadless, "as" | "className">;
+    return (
+      <ButtonHeadless {...buttonProps} className={classes} ref={ref}>
+        <TouchTarget>
+          <Badge color={color}>{children}</Badge>
+        </TouchTarget>
+      </ButtonHeadless>
+    );
+  }
 });

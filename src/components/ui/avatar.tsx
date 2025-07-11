@@ -71,17 +71,25 @@ export const AvatarButton = forwardRef(function AvatarButton(
     "relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500"
   );
 
-  return "href" in props ? (
-    <Link {...props} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
-      <TouchTarget>
-        <Avatar src={src} square={square} initials={initials} alt={alt} />
-      </TouchTarget>
-    </Link>
-  ) : (
-    <ButtonHeadless {...props} className={classes} ref={ref}>
-      <TouchTarget>
-        <Avatar src={src} square={square} initials={initials} alt={alt} />
-      </TouchTarget>
-    </ButtonHeadless>
-  );
+  if ("href" in props) {
+    // Remove button-specific props for link
+    const linkProps = props as ComponentPropsWithoutRef<typeof Link>;
+    return (
+      <Link {...linkProps} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
+        <TouchTarget>
+          <Avatar src={src} square={square} initials={initials} alt={alt} />
+        </TouchTarget>
+      </Link>
+    );
+  } else {
+    // Remove link-specific props for button
+    const buttonProps = props as ButtonPropsHeadless;
+    return (
+      <ButtonHeadless {...buttonProps} className={classes} ref={ref}>
+        <TouchTarget>
+          <Avatar src={src} square={square} initials={initials} alt={alt} />
+        </TouchTarget>
+      </ButtonHeadless>
+    );
+  }
 });

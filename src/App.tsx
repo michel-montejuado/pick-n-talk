@@ -7,6 +7,8 @@ import HomePage from "@/routes/Page";
 import BindersPage from "@/routes/binders/Page";
 import BinderPage from "@/routes/binders/[uuid]/Page";
 import BinderEditPage from "@/routes/binders/[uuid]/edit/Page";
+import NewBinderPage from "@/routes/binders/new/Page";
+import SettingsPage from "@/routes/settings/Page";
 import SetupPage from "@/routes/setup/Page";
 import UsersPage from "@/routes/users/Page";
 import UserPage from "@/routes/users/[uuid]/Page";
@@ -27,11 +29,14 @@ export default function App() {
 
           <Route path="binders">
             <Route index element={<BindersPage />} />
+            <Route path="new" element={<NewBinderPage />} />
             <Route path=":uuid">
               <Route index element={<BinderPage />} />
               <Route path="edit" element={<BinderEditPage />} />
             </Route>
           </Route>
+
+          <Route path="settings" element={<SettingsPage />} />
 
           <Route path="setup" element={<SetupPage />} />
 

@@ -123,16 +123,16 @@ export const SidebarItem = forwardRef(function SidebarItem(
           {...props}
           className={classes}
           data-current={current ? "true" : undefined}
-          ref={ref}
+          ref={ref as ForwardedRef<HTMLAnchorElement>}
         >
           <TouchTarget>{children}</TouchTarget>
         </CloseButtonHeadless>
       ) : (
         <ButtonHeadless
-          {...props}
+          {...(props as Omit<ButtonPropsHeadless, "as" | "className" | "href">)}
           className={cn("cursor-default", classes)}
           data-current={current ? "true" : undefined}
-          ref={ref}
+          ref={ref as ForwardedRef<HTMLButtonElement>}
         >
           <TouchTarget>{children}</TouchTarget>
         </ButtonHeadless>

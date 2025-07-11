@@ -29,18 +29,27 @@ export function NavbarSpacer({ className, ...props }: React.ComponentPropsWithou
   return <div aria-hidden="true" {...props} className={cn(className, "-ml-4 flex-1")} />;
 }
 
-export const NavbarItem = forwardRef(function NavbarItem(
-  {
-    current,
-    className,
-    children,
-    ...props
-  }: { current?: boolean; className?: string; children: ReactNode } & (
-    | Omit<ButtonPropsHeadless, "as" | "className">
-    | Omit<ComponentPropsWithoutRef<typeof Link>, "className">
-  ),
-  ref: ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
-) {
+type NavbarItemButtonProps = {
+  current?: boolean;
+  className?: string;
+  children: ReactNode;
+} & Omit<ButtonPropsHeadless, "as" | "className" | "href">;
+
+type NavbarItemLinkProps = {
+  current?: boolean;
+  className?: string;
+  children: ReactNode;
+  href: string;
+} & Omit<ComponentPropsWithoutRef<typeof Link>, "className">;
+
+type NavbarItemProps = NavbarItemButtonProps | NavbarItemLinkProps;
+
+export const NavbarItem = forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  NavbarItemProps
+>(function NavbarItem(props, ref) {
+  const { current, className, children, ...rest } = props as NavbarItemProps;
+
   const classes = cn(
     // Base
     "relative flex min-w-0 items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-zinc-950 sm:text-sm/5",
@@ -60,6 +69,8 @@ export const NavbarItem = forwardRef(function NavbarItem(
     "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white"
   );
 
+  const isLink = "href" in props && typeof props.href === "string";
+
   return (
     <span className={cn(className, "relative")}>
       {current && (
@@ -68,9 +79,9 @@ export const NavbarItem = forwardRef(function NavbarItem(
           className="absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-zinc-950 dark:bg-white"
         />
       )}
-      {"href" in props ? (
+      {isLink ? (
         <Link
-          {...props}
+          {...(rest as NavbarItemLinkProps)}
           className={classes}
           data-current={current ? "true" : undefined}
           ref={ref as ForwardedRef<HTMLAnchorElement>}
@@ -79,10 +90,10 @@ export const NavbarItem = forwardRef(function NavbarItem(
         </Link>
       ) : (
         <ButtonHeadless
-          {...props}
+          {...(rest as NavbarItemButtonProps)}
           className={cn("cursor-default", classes)}
           data-current={current ? "true" : undefined}
-          ref={ref}
+          ref={ref as ForwardedRef<HTMLButtonElement>}
         >
           <TouchTarget>{children}</TouchTarget>
         </ButtonHeadless>

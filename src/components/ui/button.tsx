@@ -180,15 +180,31 @@ export const Button = forwardRef(function Button(
     outline ? styles.outline : plain ? styles.plain : cn(styles.solid, styles.colors[color ?? "dark/zinc"])
   );
 
-  return "href" in props ? (
-    <Link {...props} className={classes} ref={ref as ForwardedRef<HTMLAnchorElement>}>
-      <TouchTarget>{children}</TouchTarget>
-    </Link>
-  ) : (
-    <ButtonHeadless {...props} className={cn(classes, "cursor-default")} ref={ref}>
-      <TouchTarget>{children}</TouchTarget>
-    </ButtonHeadless>
-  );
+  if ("to" in props) {
+    // Only pass anchor props to Link
+    const linkProps = props as ComponentPropsWithoutRef<typeof Link>;
+    return (
+      <Link
+        {...linkProps}
+        className={classes}
+        ref={ref as ForwardedRef<HTMLAnchorElement>}
+      >
+        <TouchTarget>{children}</TouchTarget>
+      </Link>
+    );
+  } else {
+    // Only pass button props to ButtonHeadless
+    const buttonProps = props as Omit<ButtonPropsHeadless, "as" | "className">;
+    return (
+      <ButtonHeadless
+        {...buttonProps}
+        className={cn(classes, "cursor-default")}
+        ref={ref}
+      >
+        <TouchTarget>{children}</TouchTarget>
+      </ButtonHeadless>
+    );
+  }
 });
 
 /**
