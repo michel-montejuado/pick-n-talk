@@ -1,0 +1,21 @@
+import { type SVGProps } from "react";
+
+export function Logo(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#41D1FF" />
+          <stop offset="100%" stop-color="#BD34FE" />
+        </linearGradient>
+      </defs>
+      <circle cx="16" cy="16" r="16" fill="url(#gradient)" />
+    </svg>
+  );
+}
