@@ -1,21 +1,29 @@
 import { type SVGProps } from "react";
 
+/**
+ * Pick-n-Talk Logo
+ * Combines a pictogram (circle) and a speech bubble for a friendly, accessible look.
+ */
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      width="32"
-      height="32"
       viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
+      aria-label="Pick-n-Talk Logo"
+      role="img"
       {...props}
     >
-      <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#41D1FF" />
-          <stop offset="100%" stop-color="#BD34FE" />
-        </linearGradient>
-      </defs>
-      <circle cx="16" cy="16" r="16" fill="url(#gradient)" />
+      {/* Main pictogram circle */}
+      <circle cx="10" cy="13" r="6" fill="#3B82F6" stroke="#2563EB" strokeWidth="1.5" />
+      {/* Speech bubble */}
+      <ellipse cx="21" cy="19" rx="7" ry="5" fill="#F9FAFB" stroke="#2563EB" strokeWidth="1.5" />
+      <polygon points="21,24 24,28 18,24" fill="#F9FAFB" stroke="#2563EB" strokeWidth="1" />
+      {/* Text for brand initials */}
+      <text x="10" y="15" textAnchor="middle" fontSize="5" fill="#F9FAFB" fontFamily="Arial, sans-serif" fontWeight="bold">PnT</text>
+      {/* Decorative dots for accessibility */}
+      <circle cx="6" cy="9" r="1" fill="#F9FAFB" />
+      <circle cx="14" cy="9" r="1" fill="#F9FAFB" />
+      <circle cx="10" cy="20" r="1" fill="#F9FAFB" />
     </svg>
   );
 }

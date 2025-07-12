@@ -10,6 +10,8 @@ export interface Pictogram {
   uuid: string;
 
   image: Blob;
+  sound?: Blob;
+  isFavorite: boolean;
   properties: Translation;
 
   binder: string;

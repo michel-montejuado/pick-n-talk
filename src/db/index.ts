@@ -25,6 +25,16 @@ export class PickNTalkDB extends Dexie {
       users: "uuid, name, role"
     });
   }
+
+  isEmpty(): boolean {
+    let empty = false;
+
+    this.binders.count().then(
+      count => { empty &&= count === 0; return empty; }
+    )
+
+    return true; // This is a placeholder. The actual implementation should return the result of the count check.
+  }
 }
 
 export const db = new PickNTalkDB();
